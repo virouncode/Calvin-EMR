@@ -1,0 +1,33 @@
+{
+  "name": "calvinemr",
+  "version": "1.0.0",
+  "description": "New version of AlphaEMR with Node server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "client": "cd ../client && npm start",
+    "install-client": "cd ../client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "build": "cd ../client && npm run build"
+  },
+  "engines": {
+    "node": "20.x",
+    "npm": "9.x"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/documentai": "^8.0.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "twilio": "^4.14.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "nodemon": "^3.0.1"
+  }
+}

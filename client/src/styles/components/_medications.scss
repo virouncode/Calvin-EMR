@@ -1,0 +1,124 @@
+.medications {
+    &__title {
+        font-size: 1.2rem;
+        margin-top: 60px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    &__err {
+        padding : 10px 20px;
+        font-size: 0.9rem;
+        width : 50%;
+        margin:10px auto;
+        color : red;
+        background-color:rgba(255, 0, 0, 0.403);
+        border-radius: 4px;
+        text-align: center;
+    }
+    &__table {
+        table-layout: fixed;
+        min-width:100%;
+        border-collapse: collapse;
+        font-size: 0.8rem;
+        thead{
+            background-color: $blue;
+            border: solid 1px $black;
+        }
+        th {
+            min-width: 120px;
+            padding: 2px 5px;
+            border: solid 1px $black;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    &__event {
+        &--notactive {
+            background:$grey;
+        }
+        td {
+            text-align: center;
+            border: solid 1px $black;
+            padding: 2px 5px;
+            word-break: break-word;
+            input {
+                input{
+                    width: 100%;
+                }
+                input[type="submit"]{
+                    width:auto;
+                }
+            }
+        }
+    }
+    &__event-btn-container {
+        display: flex;
+        justify-content: space-between;
+        button {
+            margin-left: 5px;
+        }
+    }
+    &__btn-container {
+        button {
+            margin-left: 5px;
+        }
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+.medications-form {
+    &__container {
+        font-size: 0.8rem;
+        display: flex;
+        justify-content: space-between;
+        padding: 40px;
+        form {
+            width: 48%;
+        }
+    }
+    &__allergies {
+        color:red;
+        margin-bottom: 10px;   
+    }
+    &__row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:2px 0;
+        label {
+            width:45%;
+        }
+        input {
+            width: 55%;
+        }
+    }
+    &__links {
+        h3 {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        width: 45%;
+        li {
+            text-decoration: underline;
+        }
+    }
+}
+
+.medications-search {
+    width:45%;
+    &-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        label {
+            margin-right: 10px;
+        }
+        input {
+            width:180px;
+        }
+        progress {
+            width:10px;
+            height:10px;
+        }
+    }
+}

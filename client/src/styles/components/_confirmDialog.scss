@@ -1,0 +1,55 @@
+.confirm {
+    &-container {
+        height: 200%;
+        width: 100%;
+        position: absolute;
+        top:0;
+        left:0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(0,0,0,0.8);
+        z-index: 1000;
+    }
+    &-dialog {
+        border: solid 2px $blue;
+        border-radius: 4px;
+        width: 400px;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        transform:translate(-50%, -50%);
+        background: $white;
+        overflow: hidden;
+        
+        // top: 300px;
+        // left: 530px;
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: $blue;
+            padding: 10px;
+            &-logo {
+                img {
+                    width:120px;
+                    height:auto
+                }
+            }
+            h2 {
+                color:$white;
+            }
+        }
+        &-btn-container {
+            display: flex;
+            justify-content: space-between;
+            width: 50%;
+            margin: 0 auto;
+            padding:5px 0 15px;
+            button {
+                width : 80px;
+            }
+        }
+    }
+    
+}
