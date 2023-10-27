@@ -14,6 +14,7 @@ export const useLocalStorageTracker = () => {
         );
       }
     };
+
     if (localStorage.getItem("tabCounter") === null) {
       localStorage.setItem("tabCounter", "1");
     } else {

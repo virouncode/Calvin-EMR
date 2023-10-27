@@ -36,12 +36,14 @@ const ProgressNotesCard = ({
   const [editVisible, setEditVisible] = useState(false);
   const [tempFormDatas, setTempFormDatas] = useState(null);
   const [formDatas, setFormDatas] = useState(null);
-  const [versions, setVersions] = useState(null);
+  const [versions, setVersions] = useState([]);
   const [attachments, setAttachments] = useState([]);
   const [bodyVisible, setBodyVisible] = useState(true);
   const bodyRef = useRef(null);
   const { auth, user, clinic, socket } = useAuth();
   const [popUpVisible, setPopUpVisible] = useState(false);
+  const [versionsLoading, setVersionsLoading] = useState(true);
+  const [attachmentsLoading, setAttachmentsLoading] = useState(true);
 
   useEffect(() => {
     if (!socket || !versions) return;
@@ -68,24 +70,34 @@ const ProgressNotesCard = ({
     const abortController = new AbortController();
     const fetchVersions = async () => {
       try {
+        setVersionsLoading(true);
         const versionsResults = (
-          await getPatientRecord(
-            "/progress_notes_log",
-            patientId,
-            auth.authToken,
-            abortController
+          await axiosXano.post(
+            "/progress_notes_log_for_progress_note_id",
+            { patient_id: patientId, progress_note_id: progressNote.id },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${auth.authToken}`,
+              },
+              ...(abortController && { signal: abortController.signal }),
+            }
           )
-        ).filter(
-          ({ progress_note_id }) => progress_note_id === progressNote.id
-        );
-        if (abortController.signal.aborted) return;
+        ).data;
+
+        if (abortController.signal.aborted) {
+          setVersionsLoading(false);
+          return;
+        }
         versionsResults.forEach(
           (version) => (version.id = version.progress_note_id) //change id field value to progress_note_id value to match progress_notes fields
         );
         versionsResults.sort((a, b) => a.version_nbr - b.version_nbr);
 
         setVersions(versionsResults);
+        setVersionsLoading(false);
       } catch (err) {
+        setVersionsLoading(false);
         if (err.name !== "CanceledError")
           toast.error(`Error: unable to save versions: ${err.message}`, {
             containerId: "A",
@@ -102,6 +114,7 @@ const ProgressNotesCard = ({
     const abortController = new AbortController();
     const fetchAttachments = async () => {
       try {
+        setAttachmentsLoading(true);
         const response = (
           await axiosXano.post(
             "/attachments_for_progress_note",
@@ -115,11 +128,16 @@ const ProgressNotesCard = ({
             }
           )
         ).data;
-        if (abortController.signal.aborted) return;
+        if (abortController.signal.aborted) {
+          setAttachmentsLoading(false);
+          return;
+        }
         setAttachments(
           response.sort((a, b) => a.date_created - b.date_created)
         );
+        setAttachmentsLoading(false);
       } catch (err) {
+        setAttachmentsLoading(false);
         if (err.name !== "CanceledError")
           toast.error(`Error: unable to fetch attachments: ${err.message}`, {
             containerId: "A",
@@ -280,7 +298,7 @@ const ProgressNotesCard = ({
     return checkedNotes.includes(progressNoteId);
   };
 
-  return tempFormDatas && versions ? (
+  return tempFormDatas ? (
     <div className="progress-notes__card">
       {bodyVisible ? (
         <ProgressNotesCardHeader
@@ -291,6 +309,7 @@ const ProgressNotesCard = ({
           tempFormDatas={tempFormDatas}
           editVisible={editVisible}
           versions={versions}
+          versionsLoading={versionsLoading}
           handleVersionChange={handleVersionChange}
           handleEditClick={handleEditClick}
           handleCalvinAIClick={handleCalvinAIClick}
@@ -319,6 +338,7 @@ const ProgressNotesCard = ({
           handleChange={handleChange}
         />
         <ProgressNotesAttachments
+          attachmentsLoading={attachmentsLoading}
           attachments={attachments}
           deletable={false}
           patientId={patientId}

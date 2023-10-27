@@ -13,6 +13,7 @@ const Header = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("clinic");
     localStorage.removeItem("tabCounter");
+    localStorage.removeItem("lastAction");
     localStorage.setItem("message", "logout");
     localStorage.removeItem("message");
   };

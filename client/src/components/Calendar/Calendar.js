@@ -207,49 +207,9 @@ const Calendar = ({ timelineVisible }) => {
     const event = info.event;
     let staffGuestsIds = event.extendedProps.staffGuestsIds ?? [];
     let patientsGuestsIds = event.extendedProps.patientsGuestsIds ?? [];
-    // let guestsCaption = "";
-    // if (patientsGuestsIds.length === 0) {
-    //   //no patients
-    //   if (staffGuestsIds.length === 0) {
-    //     //no guests
-    //     guestsCaption = "";
-    //   } else if (staffGuestsIds.length === 1) {
-    //     //one guest
-    //     guestsCaption = "Guest: ";
-    //   } else {
-    //     //several guests
-    //     guestsCaption = "Guests: ";
-    //   }
-    // } else if (patientsGuestsIds.length === 1) {
-    //   //one patient
-    //   if (staffGuestsIds.length === 0) {
-    //     //no staff
-    //     guestsCaption = "Patient: ";
-    //   } else {
-    //     guestsCaption = "Guests: ";
-    //   }
-    // } else {
-    //   //several patients
-    //   if (staffGuestsIds.length === 0) {
-    //     //no staff
-    //     guestsCaption = "Patients: ";
-    //   } else {
-    //     guestsCaption = "Guests: ";
-    //   }
-    // }
-
     const hostName = event.extendedProps.host
       ? staffIdToTitleAndName(clinic.staffInfos, event.extendedProps.host, true)
       : "";
-
-    // let hostCaption = event.extendedProps.host
-    //   ? staffIdToTitle(clinic.staffInfos, event.extendedProps.host)
-    //   : "";
-    // if (hostCaption === "Doctor") {
-    //   hostCaption = "Doctor: ";
-    // } else {
-    //   hostCaption = "Host: ";
-    // }
     if (
       info.view.type === "timeGridWeek" ||
       info.view.type === "dayGridMonth" ||

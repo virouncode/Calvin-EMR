@@ -3,6 +3,7 @@ import AttachmentCard from "./AttachmentCard";
 
 const ProgressNotesAttachments = ({
   patientId,
+  attachmentsLoading,
   attachments,
   deletable,
   handleRemoveAttachment = null,
@@ -19,6 +20,7 @@ const ProgressNotesAttachments = ({
             deletable={deletable}
             patientId={patientId}
             addable={addable}
+            attachmentsLoading={attachmentsLoading}
           />
         ))}
       </div>

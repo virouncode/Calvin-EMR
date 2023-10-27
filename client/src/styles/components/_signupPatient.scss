@@ -50,22 +50,31 @@
             }
         }
         label {
+            width:45%;
             font-size: 0.85rem;
             font-weight: bold;
         }
         input {
-            width: 200px;
+            width: 55%;
         }
         input[type="file"] {
-            width: 200px;
+            width: 55%;
             padding:0;
             &::-webkit-file-upload-button {
                 cursor: pointer;
             }
         }
         select {
-            width:200px;
+            width:55%;
         }
+        ul {
+            width:55%;
+            margin-left: auto;
+            li {
+                font-size: 0.7rem;
+            }
+        }
+       
     }
         
     &__submit {

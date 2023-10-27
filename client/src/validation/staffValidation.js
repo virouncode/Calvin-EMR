@@ -5,7 +5,13 @@ export const staffSchema = yup.object({
     .string()
     .email("Invalid Email field")
     .required("Email field is required"),
-  password: yup.string().required("Password Field is required"),
+  password: yup
+    .string()
+    .required("Password Field is required")
+    .matches(/^(?=.*?[0-9])(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[^\w\s]).{8,20}$/, {
+      message: "Invalid Password",
+      excludeEmptyString: true,
+    }),
   confirm_password: yup.string().required("Confirm Password Field is required"),
   first_name: yup
     .string()

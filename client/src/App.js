@@ -8,6 +8,7 @@ import Layout3 from "./components/Presentation/Layout3";
 import RequireAuth from "./components/Presentation/RequireAuth";
 import RequireAuthPatient from "./components/Presentation/RequireAuthPatient";
 import useAuth from "./hooks/useAuth";
+import useAutoLogout from "./hooks/useAutoLogout";
 import { useLocalStorageTracker } from "./hooks/useLocalStorageTracker";
 import BillingPage from "./pages/BillingPage";
 import CalendarPage from "./pages/CalendarPage";
@@ -37,6 +38,21 @@ const App = () => {
   const navigate = useNavigate();
   const { user, setUser, setClinic, setAuth, setSocket, socket, clinic } =
     useAuth();
+
+  const logout = () => {
+    setAuth({});
+    setUser({});
+    setClinic({});
+    localStorage.removeItem("auth");
+    localStorage.removeItem("user");
+    localStorage.removeItem("clinic");
+    localStorage.removeItem("tabCounter");
+    localStorage.removeItem("lastAction");
+    localStorage.setItem("message", "logout");
+    localStorage.removeItem("message");
+  };
+  useAutoLogout(logout, 120);
+
   useEffect(() => {
     const storageListener = (e) => {
       if (e.key !== "message") return;
@@ -46,10 +62,6 @@ const App = () => {
         setUser({});
         setClinic({});
         setAuth({});
-        localStorage.removeItem("user");
-        localStorage.removeItem("auth");
-        localStorage.removeItem("clinic");
-        localStorage.removeItem("tabCounter");
         navigate("/");
       }
     };

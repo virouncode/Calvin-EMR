@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import { toLocalDateAndTimeWithSeconds } from "../../../utils/formatDates";
@@ -12,6 +13,7 @@ const ProgressNotesCardHeader = ({
   tempFormDatas,
   editVisible,
   versions,
+  versionsLoading,
   handleVersionChange,
   handleEditClick,
   handleCalvinAIClick,
@@ -58,20 +60,24 @@ const ProgressNotesCardHeader = ({
             <strong style={{ marginRight: "5px" }}>Version: </strong>
           </label>
           {!editVisible ? (
-            <select
-              name="version_nbr"
-              value={tempFormDatas.version_nbr.toString()}
-              onChange={handleVersionChange}
-            >
-              {versions.map(({ version_nbr }) => (
-                <option value={version_nbr.toString()} key={version_nbr}>
-                  {"V" + version_nbr.toString()}
+            !versionsLoading ? (
+              <select
+                name="version_nbr"
+                value={tempFormDatas.version_nbr.toString()}
+                onChange={handleVersionChange}
+              >
+                {versions.map(({ version_nbr }) => (
+                  <option value={version_nbr.toString()} key={version_nbr}>
+                    {"V" + version_nbr.toString()}
+                  </option>
+                ))}
+                <option value={(versions.length + 1).toString()}>
+                  {"V" + (versions.length + 1).toString()}
                 </option>
-              ))}
-              <option value={(versions.length + 1).toString()}>
-                {"V" + (versions.length + 1).toString()}
-              </option>
-            </select>
+              </select>
+            ) : (
+              <CircularProgress size="0.8rem" style={{ margin: "5px" }} />
+            )
           ) : (
             <span style={{ marginRight: "10px" }}>{`V${
               versions.length + 2
@@ -80,8 +86,10 @@ const ProgressNotesCardHeader = ({
           <div className="progress-notes__card-btns">
             {!editVisible ? (
               <>
-                <button onClick={handleEditClick}>Edit</button>
-                <button>
+                <button onClick={handleEditClick} disabled={versionsLoading}>
+                  Edit
+                </button>
+                <button disabled={versionsLoading}>
                   <a
                     href={`/billing/${patientInfos.health_insurance_nbr}/${
                       progressNote.date_updated ?? progressNote.date_created
@@ -93,7 +101,12 @@ const ProgressNotesCardHeader = ({
                     Bill
                   </a>
                 </button>
-                <button onClick={handleCalvinAIClick}>CalvinAI</button>
+                <button
+                  onClick={handleCalvinAIClick}
+                  disabled={versionsLoading}
+                >
+                  CalvinAI
+                </button>
               </>
             ) : (
               <div

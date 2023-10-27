@@ -21,7 +21,7 @@ const ConfirmDialog = ({ title, content, onConfirm, onCancel }) => {
             </div>
             <h2 style={{ fontSize: "1rem" }}>{title ?? "Confirmation"}</h2>
           </div>
-          <p style={{ fontSize: "0.8rem", padding: "10px", margin: "0" }}>
+          <p style={{ fontSize: "0.85rem", padding: "10px", margin: "0" }}>
             {content ?? "Do you really want to do this action ?"}
           </p>
           <p className="confirm-dialog-btn-container">

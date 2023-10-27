@@ -2,7 +2,7 @@ import dayGrid from "@fullcalendar/daygrid";
 import interaction from "@fullcalendar/interaction";
 import list from "@fullcalendar/list";
 import multimonth from "@fullcalendar/multimonth";
-import FullCalendar from "@fullcalendar/react"; // must go before plugins
+import FullCalendar from "@fullcalendar/react";
 import timeGrid from "@fullcalendar/timegrid";
 import React from "react";
 

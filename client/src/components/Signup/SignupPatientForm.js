@@ -15,6 +15,7 @@ import RelationshipsForm from "./RelationshipsForm";
 const BASE_URL = "https://xsjk-1rpe-2jnw.n7c.xano.io";
 
 const SignupPatientForm = () => {
+  console.log("render");
   const { auth, user, clinic, socket } = useAuth();
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
@@ -43,6 +44,13 @@ const SignupPatientForm = () => {
     country: "",
     account_status: "Confirmed",
     avatar: null,
+  });
+  const [passwordValidity, setPasswordValidity] = useState({
+    uppercase: false,
+    lowercase: false,
+    number: false,
+    special: false,
+    size: false,
   });
   const handleSubmit = async (e) => {
     //DONT FORGET TO GENERATE CHART NUMBER AND POST VACCINES
@@ -281,6 +289,40 @@ const SignupPatientForm = () => {
       setErrMsg(err.message);
     }
   };
+  const handlePasswordChange = (e) => {
+    setErrMsg("");
+    let value = e.target.value;
+    let newValidity = {};
+    if (/[A-Z]/.test(value)) {
+      console.log("match upper");
+      newValidity.uppercase = true;
+    } else {
+      newValidity.uppercase = false;
+    }
+    if (/[a-z]/.test(value)) {
+      newValidity.lowercase = true;
+    } else {
+      newValidity.lowercase = false;
+    }
+    if (/[0-9]/.test(value)) {
+      newValidity.number = true;
+    } else {
+      newValidity.number = false;
+    }
+    if (/\W|_/.test(value)) {
+      newValidity.special = true;
+    } else {
+      newValidity.special = false;
+    }
+    if (value.length >= 8 && value.length <= 16) {
+      newValidity.size = true;
+    } else {
+      newValidity.size = false;
+    }
+
+    setPasswordValidity(newValidity);
+    setFormDatas({ ...formDatas, password: value });
+  };
   const handleChange = (e) => {
     setErrMsg("");
     let value = e.target.value;
@@ -290,6 +332,7 @@ const SignupPatientForm = () => {
     }
     setFormDatas({ ...formDatas, [name]: value });
   };
+
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -336,6 +379,7 @@ const SignupPatientForm = () => {
     <>
       {errMsg && <p className="signup-patient__err">{errMsg}</p>}
       {successMsg && <p className="signup-patient__success">{successMsg}</p>}
+      {console.log(passwordValidity.uppercase)}
       <form className="signup-patient__form" onSubmit={handleSubmit}>
         <div className="signup-patient__column">
           <div className="signup-patient__row">
@@ -357,9 +401,114 @@ const SignupPatientForm = () => {
               value={formDatas.password}
               name="password"
               autoComplete="off"
-              onChange={handleChange}
+              onChange={handlePasswordChange}
             />
           </div>
+          <div className="signup-patient__row">
+            <ul>
+              <li>
+                {passwordValidity.size ? (
+                  <i
+                    className="fa-solid fa-check"
+                    style={{ color: "#0dbc01" }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa-solid fa-xmark"
+                    style={{ color: "#ff4d4d" }}
+                  ></i>
+                )}{" "}
+                <span
+                  style={{
+                    color: passwordValidity.size ? "#0dbc01" : "#ff4d4d",
+                  }}
+                >
+                  8-20 characters
+                </span>
+              </li>
+              <li>
+                {passwordValidity.uppercase ? (
+                  <i
+                    className="fa-solid fa-check"
+                    style={{ color: "#0dbc01" }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa-solid fa-xmark"
+                    style={{ color: "#ff4d4d" }}
+                  ></i>
+                )}{" "}
+                <span
+                  style={{
+                    color: passwordValidity.uppercase ? "#0dbc01" : "#ff4d4d",
+                  }}
+                >
+                  At least 1 uppercase letter
+                </span>
+              </li>
+              <li>
+                {passwordValidity.lowercase ? (
+                  <i
+                    className="fa-solid fa-check"
+                    style={{ color: "#0dbc01" }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa-solid fa-xmark"
+                    style={{ color: "#ff4d4d" }}
+                  ></i>
+                )}{" "}
+                <span
+                  style={{
+                    color: passwordValidity.lowercase ? "#0dbc01" : "#ff4d4d",
+                  }}
+                >
+                  At least 1 lowercase letter
+                </span>
+              </li>
+              <li>
+                {passwordValidity.number ? (
+                  <i
+                    className="fa-solid fa-check"
+                    style={{ color: "#0dbc01" }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa-solid fa-xmark"
+                    style={{ color: "#ff4d4d" }}
+                  ></i>
+                )}{" "}
+                <span
+                  style={{
+                    color: passwordValidity.number ? "#0dbc01" : "#ff4d4d",
+                  }}
+                >
+                  At least 1 number
+                </span>
+              </li>
+              <li>
+                {passwordValidity.special ? (
+                  <i
+                    className="fa-solid fa-check"
+                    style={{ color: "#0dbc01" }}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa-solid fa-xmark"
+                    style={{ color: "#ff4d4d" }}
+                  ></i>
+                )}{" "}
+                <span
+                  style={{
+                    color: passwordValidity.special ? "#0dbc01" : "#ff4d4d",
+                  }}
+                >
+                  At least 1 special character
+                </span>
+              </li>
+            </ul>
+          </div>
+
           <div className="signup-patient__row">
             <label htmlFor="pwd2">Confirm Password*: </label>
             <input
