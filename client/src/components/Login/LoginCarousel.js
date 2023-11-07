@@ -1,5 +1,5 @@
 import React from "react";
-import logoLogin from "../../assets/img/logoLogin.png";
+import logoLogin from "../../assets/img/logoLoginTest.png";
 
 const LoginCarousel = () => {
   return (

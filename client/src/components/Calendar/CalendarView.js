@@ -61,7 +61,7 @@ const CalendarView = ({
         year: "Year",
         resourceTimeline: "Timeline",
       }}
-      initialView="timeGridWeek"
+      initialView="timeGrid"
       slotDuration={slotDuration}
       firstDay={firstDay}
       weekNumbers={true}

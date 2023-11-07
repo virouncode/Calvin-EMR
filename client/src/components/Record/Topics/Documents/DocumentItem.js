@@ -40,39 +40,33 @@ const DocumentItem = ({ item, showDocument, setErrMsgPost }) => {
   };
 
   const handleAcknowledge = async () => {
-    if (
-      await confirmAlert({
-        content: "Do you really want to acknowledge this document ?",
-      })
-    ) {
-      try {
-        const datasToPut = { ...item };
-        datasToPut.acknowledged = true;
-        datasToPut.date_acknowledged = Date.now();
-        await axiosXano.put(`documents/${item.id}`, datasToPut, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.authToken}`,
-          },
-        });
-        socket.emit("message", {
-          route: "DOCUMENTS",
-          action: "update",
-          content: { id: item.id, data: datasToPut },
-        });
-        socket.emit("message", {
-          route: "DOCMAILBOX",
-          action: "update",
-          content: { id: item.id, data: datasToPut },
-        });
-        toast.success("Document acknowledged successfully", {
-          containerId: "A",
-        });
-      } catch (err) {
-        toast.error(`Unable to acknowledge document : ${err.message}`, {
-          containerId: "A",
-        });
-      }
+    try {
+      const datasToPut = { ...item };
+      datasToPut.acknowledged = true;
+      datasToPut.date_acknowledged = Date.now();
+      await axiosXano.put(`documents/${item.id}`, datasToPut, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.authToken}`,
+        },
+      });
+      socket.emit("message", {
+        route: "DOCUMENTS",
+        action: "update",
+        content: { id: item.id, data: datasToPut },
+      });
+      socket.emit("message", {
+        route: "DOCMAILBOX",
+        action: "update",
+        content: { id: item.id, data: datasToPut },
+      });
+      toast.success("Document acknowledged successfully", {
+        containerId: "A",
+      });
+    } catch (err) {
+      toast.error(`Unable to acknowledge document : ${err.message}`, {
+        containerId: "A",
+      });
     }
   };
 

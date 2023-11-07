@@ -45,7 +45,7 @@ const Header = () => {
               }
               target="_blank"
             >
-              Patients
+              Patient Search
             </NavLink>
           </li>
           <li>

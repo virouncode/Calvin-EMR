@@ -12,7 +12,7 @@ import NewTemplate from "./NewTemplate";
 import ProgressNotesAttachments from "./ProgressNotesAttachments";
 import ProgressNotesTemplatesList from "./ProgressNotesTemplatesList";
 
-const ProgressNotesForm = ({ setAddVisible, patientId, order }) => {
+const ProgressNotesForm = ({ setAddVisible, patientId, patientInfos }) => {
   //hooks
   const { auth, user, clinic, socket } = useAuth();
   const [formDatas, setFormDatas] = useState({
@@ -95,6 +95,14 @@ const ProgressNotesForm = ({ setAddVisible, patientId, order }) => {
         containerId: "A",
       });
     }
+  };
+
+  const handleSaveSignBillClick = async (e) => {
+    await handleSubmit(e);
+    window.open(
+      `/billing/${patientInfos.health_insurance_nbr}/${Date.now()}`,
+      "_blank"
+    );
   };
   const handleChange = (e) => {
     const name = e.target.name;
@@ -247,6 +255,13 @@ const ProgressNotesForm = ({ setAddVisible, patientId, order }) => {
           />
         </div>
         <div className="progress-notes__form-btns">
+          <button
+            type="button"
+            disabled={isLoadingFile}
+            onClick={handleSaveSignBillClick}
+          >
+            Save & Sign & Bill
+          </button>
           <input type="submit" value="Save & Sign" disabled={isLoadingFile} />
           <button type="button" onClick={handleCancelClick}>
             Cancel

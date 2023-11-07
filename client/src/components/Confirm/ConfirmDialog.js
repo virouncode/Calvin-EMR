@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
-import logo from "../../assets/img/logoRect.png";
+import logo from "../../assets/img/logoRectTest.png";
 
-const ConfirmDialog = ({ title, content, onConfirm, onCancel }) => {
+const ConfirmDialog = ({ title, content, onConfirm, onCancel, isPopUp }) => {
+  const positionY = isPopUp
+    ? window.innerHeight / 2 - 70
+    : window.innerHeight / 2 + window.scrollY;
+
   useEffect(() => {
     const handleKeyboardShortcut = (e) => {
       if (e.keyCode === 13) {
@@ -13,8 +17,11 @@ const ConfirmDialog = ({ title, content, onConfirm, onCancel }) => {
   }, [onConfirm]);
   return (
     <>
-      <div className="confirm-container">
-        <div className="confirm-dialog">
+      <div
+        style={{ height: `${document.body.clientHeight}px` }}
+        className="confirm-container"
+      >
+        <div style={{ top: `${positionY}px` }} className="confirm-dialog">
           <div className="confirm-dialog-header">
             <div className="confirm-dialog-header-logo">
               <img src={logo} alt="calvin-EMR-logo" />

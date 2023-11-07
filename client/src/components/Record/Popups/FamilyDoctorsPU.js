@@ -175,7 +175,7 @@ const FamilyDoctorsPU = ({
       ) : (
         <CircularProgress />
       )}
-      <ConfirmGlobal />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

@@ -127,7 +127,7 @@ const VaccinesPU = ({
                   )}
                 </div>
               </div>
-              <ConfirmGlobal />
+              <ConfirmGlobal isPopUp={true} />
               <ToastContainer
                 enableMultiContainer
                 containerId={"B"}

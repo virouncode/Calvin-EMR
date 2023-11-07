@@ -1,6 +1,6 @@
 import React from "react";
 import userLogo from "../../assets/img/doctorLogo.png";
-import botLogo from "../../assets/img/logoCarre.png";
+import botLogo from "../../assets/img/logoCarreTest.png";
 
 const CalvinAIChatMessage = ({ role, message }) => {
   return (

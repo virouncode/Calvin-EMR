@@ -110,7 +110,7 @@ const ProgressNotes = ({ patientInfos, allContentsVisible, patientId }) => {
           <ProgressNotesForm
             setAddVisible={setAddVisible}
             patientId={patientId}
-            order={order}
+            patientInfos={patientInfos}
           />
         )}
         {!isLoading ? (

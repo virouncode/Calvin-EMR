@@ -1,6 +1,5 @@
 import { CircularProgress } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getAvailableRooms } from "../../api/getAvailableRooms";
 import axiosXano from "../../api/xano";
@@ -170,8 +169,42 @@ const Calendar = ({ timelineVisible }) => {
   }, [clinic.staffInfos, events, setEvents, socket, user.id, user.title]);
 
   //====================== EVENTS HANDLERS ==========================//
-  const handleDeleteEvent = async (e) => {
+  const handlePatientClick = (e, id) => {
+    e.stopPropagation();
     if (formVisible) return;
+    window.open(`/patient-record/${id}`, "_blank");
+  };
+  const handleDeleteEvent = async (e, info) => {
+    e.stopPropagation();
+    if (formVisible) return;
+    const event = info.event;
+    const view = info.view;
+    const eventElt = document.getElementsByClassName(`event-${event.id}`)[0];
+    if (currentEvent.current && currentEvent.current.id !== event.id) {
+      //event selection change
+      //change opacity and unselect previous event
+      currentEventElt.current.style.opacity = 0.65;
+      //Change current event, current event element and current view
+      currentEvent.current = event;
+      lastCurrentId.current = event.id;
+      currentEventElt.current = eventElt;
+      currentView.current = view;
+      eventElt.style.opacity = "1";
+    } else if (currentEvent.current === null) {
+      //first event selection
+      currentEvent.current = event;
+      lastCurrentId.current = event.id;
+      currentEventElt.current = eventElt;
+      currentView.current = view;
+      eventElt.style.opacity = "1";
+    } else {
+      //click on already selected event
+      currentEvent.current = event;
+      lastCurrentId.current = event.id;
+      currentEventElt.current = eventElt;
+      currentView.current = view;
+      eventElt.style.opacity = "1";
+    }
     if (
       await confirmAlert({
         content: "Do you really want to remove this event ?",
@@ -237,21 +270,25 @@ const Calendar = ({ timelineVisible }) => {
               {event.allDay ? "All Day" : info.timeText} -{" "}
               {event.extendedProps.reason ?? "Appointment"}
             </p>
-            <i className="fa-solid fa-trash" onClick={handleDeleteEvent}></i>
+            <i
+              className="fa-solid fa-trash"
+              onClick={(e) => handleDeleteEvent(e, info)}
+            ></i>
           </div>
           {/* {guestsCaption && ( */}
           <div>
             {patientsGuestsIds.length || staffGuestsIds.length ? (
               <span>
                 {patientsGuestsIds.map((id) => (
-                  <NavLink
+                  <span
                     className="calendar__patient-link"
-                    to={`/patient-record/${id}`}
-                    target="_blank"
+                    // to={`/patient-record/${id}`}
+                    // target="_blank"
+                    onClick={(e) => handlePatientClick(e, id)}
                     key={id}
                   >
                     {patientIdToName(clinic.patientsInfos, id).toUpperCase()},{" "}
-                  </NavLink>
+                  </span>
                 ))}
                 {staffGuestsIds.map((id) => (
                   <span key={id}>
@@ -305,17 +342,18 @@ const Calendar = ({ timelineVisible }) => {
               <span>
                 {/* <strong>{guestsCaption}</strong> */} /{" "}
                 {patientsGuestsIds.map((id) => (
-                  <NavLink
+                  <span
                     className="calendar__patient-link"
-                    to={`/patient-record/${id}`}
-                    target="_blank"
+                    // to={`/patient-record/${id}`}
+                    // target="_blank"
+                    onClick={(e) => handlePatientClick(e, id)}
                     key={id}
                   >
                     <strong>
                       {patientIdToName(clinic.patientsInfos, id).toUpperCase()}
                     </strong>
                     ,{" "}
-                  </NavLink>
+                  </span>
                 ))}
                 {staffGuestsIds.map((id) => (
                   <span key={id}>
@@ -337,7 +375,10 @@ const Calendar = ({ timelineVisible }) => {
             {event.extendedProps.room} / <strong>Status: </strong>
             {event.extendedProps.status}
           </div>
-          <i className="fa-solid fa-trash" onClick={handleDeleteEvent}></i>
+          <i
+            className="fa-solid fa-trash"
+            onClick={(e) => handleDeleteEvent(e, info)}
+          ></i>
         </div>
       );
     } else if (info.view.type === "listWeek") {
@@ -365,7 +406,7 @@ const Calendar = ({ timelineVisible }) => {
             </p>
             <i
               className="fa-solid fa-trash"
-              onClick={handleDeleteEvent}
+              onClick={(e) => handleDeleteEvent(e, info)}
               style={{ cursor: "pointer" }}
             ></i>
           </div>
@@ -374,17 +415,18 @@ const Calendar = ({ timelineVisible }) => {
             {patientsGuestsIds.length || staffGuestsIds.length ? (
               <span>
                 {patientsGuestsIds.map((id) => (
-                  <NavLink
+                  <span
                     className="calendar__patient-link"
-                    to={`/patient-record/${id}`}
-                    target="_blank"
+                    // to={`/patient-record/${id}`}
+                    // target="_blank"
+                    onClick={(e) => handlePatientClick(e, id)}
                     key={id}
                   >
                     <strong>
                       {patientIdToName(clinic.patientsInfos, id).toUpperCase()}
                     </strong>
                     ,{" "}
-                  </NavLink>
+                  </span>
                 ))}
                 {staffGuestsIds.map((id) => (
                   <span key={id}>

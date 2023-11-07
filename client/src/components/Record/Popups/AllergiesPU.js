@@ -127,7 +127,7 @@ const AllergiesPU = ({
       ) : (
         <CircularProgress />
       )}
-      <ConfirmGlobal />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

@@ -150,7 +150,7 @@ const EditTemplate = ({
         </button>
         <button onClick={handleCancel}>Cancel</button>
       </div>
-      <ConfirmGlobal />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

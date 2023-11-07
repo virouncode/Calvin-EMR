@@ -662,7 +662,7 @@ const DemographicsPU = ({ patientInfos, setPopUpVisible }) => {
       ) : (
         <CircularProgress />
       )}
-      <ConfirmGlobal />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

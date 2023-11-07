@@ -21,8 +21,8 @@
         border-radius: 4px 4px 0 0;
         font-size : 0.85rem;
         height: 50px;
-        color : #FEFEFE;
-        background : $blue2;
+        color : $black;
+        background : $blue;
     }
     &__left-bar {   
         width : 95%;
@@ -242,7 +242,7 @@
         width : 100%;
     }
     &-weekdays, &-weekday {
-        background-color:$blue2 !important;
+        background-color:$blue !important;
     }
     &-day {
         font-size : 0.7rem !important;
@@ -278,7 +278,7 @@
         line-height: 30px;
     }
     &-month, &-monthDropdown-months {
-        background-color:$blue2 !important;
+        background-color:$blue !important;
     }
 }
 .dayContainer{

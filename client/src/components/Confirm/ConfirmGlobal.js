@@ -11,7 +11,7 @@ export const confirmAlert = (props) => {
   return confirmAction.current(props);
 };
 
-const ConfirmGlobal = () => {
+const ConfirmGlobal = ({ isPopUp = false }) => {
   const [open, setOpen] = useState(false);
   const [props, setProps] = useState({});
   const resolveRef = useRef(() => {});
@@ -36,6 +36,7 @@ const ConfirmGlobal = () => {
         }}
         open={open}
         {...props}
+        isPopUp={isPopUp}
       />
     )
   );

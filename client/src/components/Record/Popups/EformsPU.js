@@ -27,21 +27,6 @@ const EformsPU = ({
   const [isLoadingFile, setIsLoadingFile] = useState(false);
   const direction = useRef(false);
 
-  //STYLE
-  const DIALOG_CONTAINER_STYLE = {
-    height: "100vh",
-    width: "200vw",
-    fontFamily: "Arial",
-    position: "absolute",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    top: "0px",
-    left: "0px",
-    background: "rgba(0,0,0,0.8)",
-    zIndex: "100000",
-  };
-
   //HANDLERS
   const handleSort = (columnName) => {
     direction.current = !direction.current;
@@ -227,7 +212,7 @@ const EformsPU = ({
       ) : (
         <CircularProgress />
       )}
-      <ConfirmGlobal containerStyle={DIALOG_CONTAINER_STYLE} />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

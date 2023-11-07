@@ -137,7 +137,7 @@ const AppointmentsPU = ({
       ) : (
         <CircularProgress />
       )}
-      <ConfirmGlobal />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

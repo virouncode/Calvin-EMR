@@ -22,21 +22,6 @@ const SocHistoryPU = ({
   const [errMsgPost, setErrMsgPost] = useState("");
   const [formDatas, setFormDatas] = useState(datas ? datas[0] : null);
 
-  //STYLES
-  const DIALOG_CONTAINER_STYLE = {
-    height: "100vh",
-    width: "200vw",
-    fontFamily: "Arial",
-    position: "absolute",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    top: "0px",
-    left: "0px",
-    background: "rgba(0,0,0,0.8)",
-    zIndex: "100000",
-  };
-
   //HANDLERS
   const handleChange = (e) => {
     setErrMsgPost("");
@@ -292,7 +277,7 @@ const SocHistoryPU = ({
       ) : (
         <CircularProgress />
       )}
-      <ConfirmGlobal containerStyle={DIALOG_CONTAINER_STYLE} />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

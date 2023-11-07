@@ -37,10 +37,14 @@ const ProgressNotesToolBar = ({
   const handleClickNew = () => {
     setAddVisible(true);
     triangleRef.current.classList.add("triangle--active");
-    contentRef.current.classList.add("progress-notes-content--active");
+    contentRef.current.classList.add("progress-notes__content--active");
   };
 
   const handleClickFold = (e) => {
+    if (!allBodiesVisible) {
+      triangleRef.current.classList.add("triangle--active");
+      contentRef.current.classList.add("progress-notes__content--active");
+    }
     setAllBodiesVisible((v) => !v);
   };
   const handleClickPrint = () => {

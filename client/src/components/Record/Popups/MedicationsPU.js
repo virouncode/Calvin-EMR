@@ -214,7 +214,7 @@ const MedicationsPU = ({
           <PrescriptionPU medsRx={medsRx} patientInfos={patientInfos} />
         </FakeWindow>
       )}
-      <ConfirmGlobal />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}

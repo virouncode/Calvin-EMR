@@ -20,7 +20,7 @@
   &__logo {
     height: 40px;
     width: 130px;
-    background: url(../../assets/img/logoRect.png) center/cover;
+    background: url(../../assets/img/logoRectTest.png) center/cover;
     cursor:pointer;
   }
   &__nav {
@@ -36,13 +36,16 @@
     }
   }
   &__link {
-    color:$white;
+    // color:$white;
+    color:$black;
     &:hover {
-      color:#f3f3f3;
+      // color:#f3f3f3;
+      color:$black;
     }
     &--active {
       font-weight: bold;
-      border: solid 1px $white;
+      // border: solid 1px $white;
+      border: solid 1px $black;
       padding:5px 10px;
       border-radius:40px;
     }
@@ -55,6 +58,7 @@
     text-align: right;
     font-size: 1rem;
     text-align: end;
-    color:#FEFEFE;
+    // color:#FEFEFE;
+    color:$black;
   }
 }

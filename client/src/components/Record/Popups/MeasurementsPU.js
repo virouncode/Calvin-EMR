@@ -150,7 +150,7 @@ const MeasurementsPU = ({
       ) : (
         <CircularProgress />
       )}
-      <ConfirmGlobal />
+      <ConfirmGlobal isPopUp={true} />
       <ToastContainer
         enableMultiContainer
         containerId={"B"}
